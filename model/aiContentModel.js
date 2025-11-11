@@ -2,28 +2,61 @@ const mongoose = require("mongoose");
 
 const aiContentSchema = new mongoose.Schema(
   {
-    user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: false },
-    url: { type: String, required: true },
-    title: { type: String, default: "Untitled Content" },
-    description: { type: String, default: "" },
-    script: { type: String, default: "" },
-    metaTags: { type: [String], default: [] },
-    hashtags: { type: String, default: "" },
-    thumbnailIdea: { type: String, default: "" },
-    gemini_script: { type: String, default: "" },
-    sourceType: { type: String, enum: ["youtube", "website"], default: "website" },
-
-    // ✅ Added this:
-    timestamps: {
-      type: Map,
-      of: String, // Example: { inputValidation: "01:15", dataExtraction: "02:30" }
-      default: {},
+    // 👤 Reference to the logged-in user
+    user: { 
+      type: mongoose.Schema.Types.ObjectId, 
+      ref: "User", 
+      required: true 
     },
 
-    // optional
-    topic: { type: String, default: "" },
+    // 🌐 Basic content details
+    url: { 
+      type: String, 
+      required: true 
+    },
+    title: { 
+      type: String, 
+      default: "Untitled Content" 
+    },
+    description: { 
+      type: String, 
+      default: "" 
+    },
+
+    // 🧠 AI-generated data
+    script: { 
+      type: mongoose.Schema.Types.Mixed, 
+      default: "" 
+    },
+    metaTags: { 
+      type: [String], 
+      default: [] 
+    },
+    hashtags: { 
+      type: String, 
+      default: "" 
+    },
+    thumbnailIdea: { 
+      type: String, 
+      default: "" 
+    },
+    gemini_script: { 
+      type: String, 
+      default: "" 
+    },
+
+    // 📹 or 🌍 Source type: YouTube or website
+    sourceType: { 
+      type: String, 
+      enum: ["youtube", "website"], 
+      default: "website" 
+    },
   },
-  { timestamps: true }
+  { 
+    timestamps: true // ⏰ Automatically adds createdAt and updatedAt
+  }
 );
 
-module.exports = mongoose.model("AIContent", aiContentSchema);
+const AIContent = mongoose.model("AIContent", aiContentSchema);
+
+module.exports = AIContent;

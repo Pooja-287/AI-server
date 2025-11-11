@@ -1,15 +1,15 @@
-// config/openrouterConfig.js
+// config/openRouterConfig.js
 const OpenAI = require("openai");
 require("dotenv").config();
 
-// ✅ Create OpenAI client for OpenRouter
-const client = new OpenAI({
-  apiKey: process.env.OPENROUTER_API_KEY,
+const openrouter = new OpenAI({
   baseURL: "https://openrouter.ai/api/v1",
+  apiKey: process.env.OPENROUTER_API_KEY,
   defaultHeaders: {
     "HTTP-Referer": process.env.SITE_URL || "",
     "X-Title": process.env.SITE_NAME || "AI Content Generator",
   },
 });
 
-module.exports = client; // ✅ Export as `client`
+// ✅ Only export the client instance
+module.exports = openrouter;
